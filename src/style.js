@@ -8,16 +8,9 @@ export const Container = styled.div`
 `;
 
 export const Form = styled.form`
-  text-align: center;
+  display: flex;
+  flex-direction: column;
 `;
-
-export const input = styled.input`
-  margin-bottom: 40px;
-  width: 20vw;
-  height: 5vh;
-  border-radius: 10px;
-`;
-
 export const Login = styled.div`
   border: 2px solid black;
   width: 30vw;
@@ -29,9 +22,10 @@ export const Login = styled.div`
   background-color: lightgray;
 `;
 
-export const Submit = styled.input`
+export const Input = styled.input`
   width: 20vw;
-  height: 6vh;
-  border-radius: 20px;
-  margin-bottom: 30px;
+  height: 5vh;
+  border-radius: 5px;
+
+  margin-bottom: 40px;
 `;
