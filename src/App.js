@@ -1,33 +1,49 @@
 import { useForm } from "react-hook-form";
-import * as S from "./style";
-//react-hook-form을 사용하는 이유는 redux-form이랑 formik등이 있었는데 이것들이 react-hook-form보다 성능이 좋지 않기 때문이고 소스코드가 다른것들에 비해
-//깔끔해서 사용한다
 
-function App() {
-  const { register, watch } = useForm();
-  console.log(watch("password"));
+export default function App() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const onSubmit = data => console.log(data);
+
   return (
-    <S.Container className="App">
-      <S.Login>
-        <S.Form>
-          <S.Input name="email" type="email" placeholder="이메일" />
-          <S.Input name="name" type="name" placeholder="이름" />
-          <S.Input
-            name="password"
-            type="password"
-            placeholder="비밀번호"
-            {...register("password")}
-          />
-          <S.Input
-            name="password"
-            type="password"
-            placeholder="비밀번호 확인"
-          />
-          <S.Input type="submit" />
-        </S.Form>
-      </S.Login>
-    </S.Container>
+    <div className="App">
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <input
+          name="email"
+          placeholder="이메일"
+          {...register("email", {
+            required: "이메일을 입력해주세요",
+            pattern: {
+              value: /\S+@\S+\.\S+/,
+              message: "이메일 형식에 맞게 입력을 해주세요",
+            },
+          })}
+        />
+        {errors.email && <p>{errors.email.message}</p>}
+        <input
+          type="password"
+          name="password"
+          placeholder="비밀번호"
+          {...register("password", {
+            required: "비밀번호를 입력해주세요",
+            minLength: {
+              value: 6,
+              message: "최소 6자 이상의 비밀번호를 입력해주세요",
+            },
+          })}
+        />
+        {errors.password && <p>{errors.password.message}</p>}
+        <input
+          type="password"
+          name="passwordConfirm"
+          placeholder="비밀번호 확인"
+          {...register("passwordConfirm")}
+        />
+        <input type="submit" />
+      </form>
+    </div>
   );
 }
-
-export default App;
