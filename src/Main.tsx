@@ -1,20 +1,27 @@
+import React, { FC } from "react";
 import { useForm } from "react-hook-form";
 import * as S from "./style/style";
 
-export default function App() {
+type FormValue = {
+  name: string;
+  nickname: string;
+  email: string;
+  password: string;
+  password_confirm: string;
+};
+const Main: FC<FormValue> = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const onSubmit = data => console.log(data);
+  const onSubmit = (data) => console.log(data);
 
   return (
     <S.Container className="App">
       <S.Box>
         <S.Form onSubmit={handleSubmit(onSubmit)}>
           <S.Input
-            name="email"
             placeholder="이메일"
             {...register("email", {
               required: "이메일을 입력해주세요",
@@ -28,7 +35,6 @@ export default function App() {
 
           <S.Input
             type="password"
-            name="password"
             placeholder="비밀번호"
             {...register("password", {
               required: "비밀번호를 입력해주세요",
@@ -42,7 +48,6 @@ export default function App() {
 
           <S.Input
             type="password"
-            name="passwordConfirm"
             placeholder="비밀번호 확인"
             {...register("passwordConfirm")}
           />
@@ -51,4 +56,6 @@ export default function App() {
       </S.Box>
     </S.Container>
   );
-}
+};
+
+export default Main;
